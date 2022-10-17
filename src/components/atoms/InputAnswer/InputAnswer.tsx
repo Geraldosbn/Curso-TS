@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "./style";
 
 
@@ -7,8 +7,12 @@ interface Props {
   id?: string
 }
 
+
+
 const InputAnswer = (props: Props, e: any) => {
   const { id } = props
+
+  const [value, setValue] = useState('')
 
   return (
     <div>
@@ -17,6 +21,8 @@ const InputAnswer = (props: Props, e: any) => {
         type="text"
         placeholder="Resposta NUMERO"
         required
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       ></input>
     </div>
   );

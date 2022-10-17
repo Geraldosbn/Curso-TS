@@ -1,30 +1,32 @@
-import React, { Children, useState } from "react";
+import React, { useMemo, useState } from "react";
 import InputAnswer from "../../atoms/InputAnswer/InputAnswer";
 import ButtonCreate from "../../atoms/ButtonCreate/ButtonCreate";
-import ButtonDelete from "../../atoms/ButtonDelete/ButtonDelete";
+
+import InputTest from "../InputTest";
 
 
 const BodyQuestions = () => {
 
   const [answerList, setAnswerList] = useState([] as any);
 
-  const keyAnswer = answerList.map((keyAnswer: any, index: number) =>
-    <div key={index} >
-      <InputAnswer id={index.toString()} />
-      <ButtonDelete onClick={() => removeAnswer(index)} type={'button'} />
-    </div>
-  )
+  const keyAnswer = useMemo(() => {
+    return answerList.map((keyAnswer: any, index: number) =>
+    <InputTest key={keyAnswer} type='text' onClick={() => removeAnswer(index)}/>
+)}, [answerList])
 
-  console.log(keyAnswer)
+  console.log(answerList)
 
   function insertAnswer() {
-    setAnswerList([...answerList, 1]);
+    setAnswerList([...answerList, Math.random()]);
   }
 
+  console.log(answerList)
+
   function removeAnswer(index: number) {
-    const newAnswerList = keyAnswer.slice()
+
+    const newAnswerList = answerList.slice()
     newAnswerList.splice(index, 1)
-    setAnswerList([...newAnswerList])
+    setAnswerList(newAnswerList)
 
     console.log("O indice clicado foi ->", index)
     console.log(" Array newAnswerList ", newAnswerList)
@@ -39,7 +41,7 @@ const BodyQuestions = () => {
       </div>
       {keyAnswer}
     </div>
-  );
-};
+  )
+}
 
 export default BodyQuestions;
